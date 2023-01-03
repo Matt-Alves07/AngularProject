@@ -1,11 +1,24 @@
 <form [formGroup]="cadastroForm" (ngSubmit)="submitForm()">
-    <input type="text" formControlName="firstName" placeholder="Your first name..."><br>
+    <input type="text" formControlName="firstName" placeholder="Your first name...">
+    <span *ngIf="cadastroForm.get('firstName')?.errors && cadastroForm.get('firstName')?.dirty && cadastroForm.get('firstName')?.touched" class="required-field-empty">
+        First name is required.
+    </span><br>
     <input type="text" formControlName="lastName" placeholder="Your last name...">
+    <span *ngIf="cadastroForm.get('lastName')?.errors && cadastroForm.get('lastName')?.dirty && cadastroForm.get('lastName')?.touched" class="required-field-empty">
+        {{ cadastroForm.get('lastName')?.errors | json }}
+    </span><br>
 
     <hr>
 
-    {{ cadastroForm.get('firstName')?.value }} - {{ cadastroForm.get('lastName')?.value }}
+    <p>
+        {{ cadastroForm.get('lastName')?.errors | json }}
+    </p>
+    <!--
+    {{ cadastroForm.get('firstName')?.errors | json }}
+    {{ cadastroForm.get('firstName')?.touched | json }}
+    {{ cadastroForm.get('firstName')?.dirty | json }}
+    -->
 
     <hr>
-    <button>Send</button>
+    <button [disabled]="cadastroForm.invalid">Send</button>
 </form>
